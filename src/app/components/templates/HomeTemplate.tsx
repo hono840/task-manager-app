@@ -14,7 +14,9 @@ import TaskList from '../molecules/TaskList';
 import TaskListItem from '../molecules/TaskListItem';
 import SmallText from '../atoms/SmallText';
 import VariantButton from '../atoms/Buttons/VariantButton';
-
+import ContentsWrapper from '../molecules/ContentsWrapper';
+import Form from '../molecules/Form';
+import PageWrapper from '../molecules/PageWrapper';
 
 const HomeTemplate = () => {
   // ハンバーガーメニューの開閉状態
@@ -29,17 +31,17 @@ const HomeTemplate = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white relative">
+    <PageWrapper>
       {/* ヘッダー */}
       <Header onClick={openMenu} />
       {/* ハンバーガーメニュー:SP表示 */}
       <HeaderMenuSp isOpen={isOpen} onClick={closeMenu} />
       {/* メインコンテンツ */}
-      <main className="max-w-7xl w-full container mx-auto px-4 py-8">
+      <ContentsWrapper>
         {/* タスク作成フォーム */}
         <Section>
           <SectionTitle>Create a New Task</SectionTitle>
-          <form className="bg-gray-800 rounded-lg p-4 space-y-4 w-full">
+          <Form>
             <InputArea
               labelName="Task Title"
               type="text"
@@ -57,7 +59,7 @@ const HomeTemplate = () => {
               type="text"
               placeholder="e.g. design, meeting" />
             <PrimaryButton type='submit' buttonName='Create' />
-          </form>
+          </Form>
         </Section>
         {/* タスク一覧 */}
         <Section>
@@ -78,13 +80,13 @@ const HomeTemplate = () => {
             </TaskListItem>
           </TaskList>
         </Section>
-      </main>
+      </ContentsWrapper>
       {/* フッター */}
       <Footer />
       {isOpen && (
         <Overlay onClick={closeMenu} />
       )}
-    </div>
+    </PageWrapper>
   )
 }
 

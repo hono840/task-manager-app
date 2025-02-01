@@ -3,6 +3,8 @@ import Label from './Label'
 import InputElement from '../atoms/InputElement'
 
 type Props = {
+  id?: string
+  htmlFor?: string
   labelName: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   value?: string
@@ -10,13 +12,15 @@ type Props = {
   placeholder?: string
 }
 
-const InputArea: FC<Props> = ({ labelName, onChange, value, type, placeholder }) => {
+const InputArea: FC<Props> = ({ id, htmlFor, labelName, onChange, value, type, placeholder }) => {
   return (
     <div>
       <Label
+        htmlFor={htmlFor}
         labelName={labelName}
       />
       <InputElement
+        id={id}
         onChange={onChange}
         value={value}
         type={type}

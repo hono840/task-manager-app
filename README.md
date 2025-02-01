@@ -10,3 +10,4 @@
 | tags        | text[] (配列)    | タスクに付与するタグ (複数タグの管理に便利) |
 | created_at  | timestamptz      | データ作成日時 (自動で now() を設定)        |
 | updated_at  | timestamptz      | データ更新日時 (自動で now() を設定)        |
+| status      | text             | 完了か未完了か                              |

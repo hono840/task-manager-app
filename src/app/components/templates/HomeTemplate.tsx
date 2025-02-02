@@ -40,42 +40,42 @@ const HomeTemplate = () => {
       <ContentsWrapper>
         {/* タスク作成フォーム */}
         <Section>
-          <SectionTitle>Create a New Task</SectionTitle>
+          <SectionTitle>タスク作成</SectionTitle>
           <Form>
             <InputArea
-              labelName="Task Title"
+              labelName="タスク内容"
               type="text"
-              placeholder='e.g. Meeting with John'
+              placeholder='タスク内容を記載'
             />
             <SelectArea
-              labelName='Priority'
+              labelName='優先度'
             />
             <InputArea
-              labelName="Deadline"
+              labelName="期限"
               type="date"
             />
             <InputArea
-              labelName="Labels"
+              labelName="ラベル"
               type="text"
-              placeholder="e.g. design, meeting" />
-            <PrimaryButton type='submit' buttonName='Create' />
+              placeholder="[会議][作業][勤怠]" />
+            <PrimaryButton type='submit' buttonName='作成' />
           </Form>
         </Section>
         {/* タスク一覧 */}
         <Section>
-          <SectionTitle>Task List</SectionTitle>
+          <SectionTitle>タスク一覧</SectionTitle>
           <TaskList>
             <TaskListItem>
               <div>
                 <p className="font-semibold">Task Title 1</p>
-                <SmallText>Priority: High</SmallText>
-                <SmallText>Deadline: 2025-01-31</SmallText>
-                <SmallText>Tags: [design, urgent]</SmallText>
-                <SmallText>status: Not yet started</SmallText>
+                <SmallText>優先度: 高</SmallText>
+                <SmallText>期限: 2025-01-31</SmallText>
+                <SmallText>ラベル: [design, urgent]</SmallText>
+                <SmallText>ステータス: 完了</SmallText>
               </div>
               <div className="mt-2 flex gap-2 border-t border-gray-700 pt-4 sm:border-none sm:mt-0 sm:pt-0">
-                <VariantButton type='button' status='info'>Edit</VariantButton>
-                <VariantButton type='button' status='alert'>Delete</VariantButton>
+                <VariantButton type='button' status='info'>編集</VariantButton>
+                <VariantButton type='button' status='alert'>削除</VariantButton>
               </div>
             </TaskListItem>
           </TaskList>

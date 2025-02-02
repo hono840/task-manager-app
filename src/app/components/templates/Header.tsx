@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import ThreeLineIcon from '../atoms/icons/ThreeLineIcon'
 import HamburgerButton from '../atoms/HamburgerButton'
 import Logo from '../atoms/Logo'
-import HeaderMenuList from '../molecules/HeaderMenuList'
+import HeaderMenuListPc from '../molecules/HeaderMenuListPc'
 
 type Props = {
   onClick: () => void
@@ -11,7 +11,7 @@ type Props = {
 const Header: FC<Props> = ({ onClick }) => {
   return (
     <header className="border-b border-gray-700">
-      <div className="max-w-7xl mx-auto px-4 py-4">
+      <div className="max-w-3xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* ロゴ */}
           <Logo />
@@ -22,7 +22,7 @@ const Header: FC<Props> = ({ onClick }) => {
               <ThreeLineIcon />
             </HamburgerButton>
             {/* 通常メニュー: md以上の画面幅で表示 */}
-            <HeaderMenuList />
+            <HeaderMenuListPc />
           </nav>
         </div>
       </div>

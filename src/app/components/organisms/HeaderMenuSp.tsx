@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import HeaderMenuListSp from '../molecules/HeaderMenuListSp'
 
 type Props = {
   isOpen: boolean
@@ -32,23 +33,7 @@ const HeaderMenuSp: FC<Props> = ({ isOpen, onClick }) => {
 
       {/* メニュー項目例 */}
       <nav className="px-4 flex-grow">
-        <ul className="space-y-4">
-          <li>
-            <a href="#" className="block hover:text-gray-400">
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block hover:text-gray-400">
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#" className="block hover:text-gray-400">
-              Contact
-            </a>
-          </li>
-        </ul>
+        <HeaderMenuListSp />
       </nav>
     </div>
   )

@@ -8,6 +8,7 @@ import PrimaryButton from '../components/atoms/Buttons/PrimaryButton'
 import ContentsWrapper from '../components/molecules/ContentsWrapper'
 import PageWrapper from '../components/molecules/PageWrapper'
 import Section from '../components/organisms/Section'
+import AuthSwitchLink from '../components/organisms/AuthSwitchLink'
 
 const page = () => {
   return (
@@ -21,7 +22,7 @@ const page = () => {
             <InputArea
               htmlFor="name"
               id="name"
-              labelName="Name"
+              labelName="ユーザーネーム"
               // onChange={onChange}
               // value={value}
               type="text"
@@ -30,7 +31,7 @@ const page = () => {
             <InputArea
               htmlFor="email"
               id="email"
-              labelName="Email"
+              labelName="メールアドレス"
               // onChange={onChange}
               // value={value}
               type="text"
@@ -39,21 +40,19 @@ const page = () => {
             <InputArea
               htmlFor="password"
               id="password"
-              labelName="Password"
+              labelName="パスワード"
               // onChange={onChange}
               // value={value}
               type="password"
               placeholder="••••••••"
             />
-            <PrimaryButton type='submit' buttonName='SignUp' />
+            <PrimaryButton type='submit' buttonName='サインアップ' />
           </Form>
           {/* サインイン画面への遷移 */}
-          <p className="mt-4 text-center text-sm text-gray-400">
-            Already have an account?{' '}
-            <a href="/signIn" className="text-blue-500 hover:underline">
-              Sign In
-            </a>
-          </p>
+          <AuthSwitchLink
+            href='/signIn'
+            guideText='もうすでにアカウントを持っていますか？'
+            linkText='サインイン' />
         </Section>
       </ContentsWrapper>
     </PageWrapper>

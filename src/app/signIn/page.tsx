@@ -1,13 +1,12 @@
 import React from 'react'
 import SectionTitle from '../components/atoms/SectionTitle'
 import Form from '../components/molecules/Form'
-import Label from '../components/molecules/Label'
-import InputElement from '../components/atoms/InputElement'
 import InputArea from '../components/molecules/InputArea'
 import PrimaryButton from '../components/atoms/Buttons/PrimaryButton'
 import ContentsWrapper from '../components/molecules/ContentsWrapper'
 import PageWrapper from '../components/molecules/PageWrapper'
 import Section from '../components/organisms/Section'
+import AuthSwitchLink from '../components/organisms/AuthSwitchLink'
 
 const page = () => {
   return (
@@ -19,7 +18,7 @@ const page = () => {
             <InputArea
               htmlFor="email"
               id="email"
-              labelName="Email"
+              labelName="メールアドレス"
               // onChange={onChange}
               // value={value}
               type="text"
@@ -28,21 +27,20 @@ const page = () => {
             <InputArea
               htmlFor="password"
               id="password"
-              labelName="Password"
+              labelName="パスワード"
               // onChange={onChange}
               // value={value}
               type="password"
               placeholder="••••••••"
             />
-            <PrimaryButton type='submit' buttonName='SignIn' />
+            <PrimaryButton type='submit' buttonName='サインイン' />
           </Form>
           {/* サインアップ画面への遷移 */}
-          <p className="mt-4 text-center text-sm text-gray-400">
-            Don't have an account?{' '}
-            <a href="/signIn" className="text-blue-500 hover:underline">
-              Sign Up
-            </a>
-          </p>
+          <AuthSwitchLink
+            href='/signUp'
+            guideText='アカウントを持っていませんか？'
+            linkText='サインアップ'
+          />
         </Section>
       </ContentsWrapper>
     </PageWrapper>

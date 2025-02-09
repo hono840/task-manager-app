@@ -3,7 +3,8 @@ import { supabase } from "../utils/supabaseClient";
 
 export const useUser = () => {
   const [user, setUser] = useState<{ id: string; email: string; userName: string; } | null>(null)
-  const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
+  const [isLoggedin, setIsLoggedin] = useState<boolean | undefined>(undefined);
+
 
   useEffect(() => {
     const fetchUser = async () => {

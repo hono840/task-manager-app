@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Header from './Header';
 import HeaderMenuSp from '../organisms/HeaderMenuSp';
 import Footer from './Footer';
@@ -18,9 +18,11 @@ import ContentsWrapper from '../molecules/ContentsWrapper';
 import Form from '../molecules/Form';
 import PageWrapper from '../molecules/PageWrapper';
 import { useUser } from '@/app/hooks/useUser';
-import { useRouter } from 'next/navigation';
 
 const HomeTemplate = () => {
+  const [task, setTask] = useState<string>('');
+  const [priority, setPriority] = useState<string>('low');
+  const [priorityName, setPriorityName] = useState<'低' | '中' | '高'>('低');
   const user = useUser();
   // ハンバーガーメニューの開閉状態
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +34,14 @@ const HomeTemplate = () => {
   const closeMenu = () => {
     setIsOpen(false);
   };
+
+  const onChangeTask = (e: ChangeEvent<HTMLInputElement>) => {
+    setTask(e.target.value);
+  }
+  const onChangePriority = (e: ChangeEvent<HTMLSelectElement>) => {
+    setPriority(e.target.value);
+    setPriorityName(e.target.value as '低' | '中' | '高');
+  }
 
   return (
     <PageWrapper>
@@ -50,9 +60,14 @@ const HomeTemplate = () => {
               labelName="タスク内容"
               type="text"
               placeholder='タスク内容を記載'
+              value={task}
+              onChange={onChangeTask}
             />
             <SelectArea
               labelName='優先度'
+              value={priority}
+              valueName={priorityName}
+              onChange={onChangePriority}
             />
             <InputArea
               labelName="期限"

@@ -79,7 +79,7 @@ const SignInTemplate = () => {
               type="password"
               placeholder="••••••••"
             />
-            <PrimaryButton type="submit" buttonName="サインイン" />
+            <PrimaryButton type="submit" buttonName="サインイン" disabled={!email || !password} />
           </Form>
           {/* サインアップ画面への遷移 */}
           <AuthSwitchLink

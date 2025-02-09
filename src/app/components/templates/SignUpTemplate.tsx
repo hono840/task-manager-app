@@ -78,7 +78,7 @@ const SignUpTemplate = () => {
               type="password"
               placeholder="••••••••"
             />
-            <PrimaryButton type='submit' buttonName='サインアップ' />
+            <PrimaryButton type='submit' buttonName='サインアップ' disabled={!userName || !email || !password} />
           </Form>
           {/* サインイン画面への遷移 */}
           <AuthSwitchLink

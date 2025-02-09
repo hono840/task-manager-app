@@ -17,8 +17,10 @@ import VariantButton from '../atoms/Buttons/VariantButton';
 import ContentsWrapper from '../molecules/ContentsWrapper';
 import Form from '../molecules/Form';
 import PageWrapper from '../molecules/PageWrapper';
+import { useUser } from '@/app/hooks/useUser';
 
 const HomeTemplate = () => {
+  const user = useUser();
   // ハンバーガーメニューの開閉状態
   const [isOpen, setIsOpen] = useState(false);
   // ハンバーガーメニューを開く
@@ -38,6 +40,7 @@ const HomeTemplate = () => {
       <HeaderMenuSp isOpen={isOpen} onClick={closeMenu} />
       {/* メインコンテンツ */}
       <ContentsWrapper>
+        {user.user && <Section>{<p>こんにちは{user.user.userName}さん</p>}</Section>}
         {/* タスク作成フォーム */}
         <Section>
           <SectionTitle>タスク作成</SectionTitle>

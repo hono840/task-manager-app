@@ -3,12 +3,17 @@ import { supabase } from "../utils/supabaseClient";
 
 export const useUser = () => {
   const [user, setUser] = useState<{ id: string; email: string; userName: string; } | null>(null)
+  const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser();
       if (!error) {
         setUser(data?.user ? { id: data.user.id, email: data.user.email ?? '', userName: data.user.user_metadata.userName ?? '' } : null)
+        setIsLoggedin(true);
+      } else {
+        setUser(null)
+        setIsLoggedin(false);
       }
     }
     fetchUser();
@@ -24,5 +29,5 @@ export const useUser = () => {
     });
     return () => authListener?.subscription.unsubscribe();
   }, []);
-  return user;
+  return { user, isLoggedin };
 }

@@ -11,11 +11,14 @@ import PrimaryButton from "../atoms/Buttons/PrimaryButton";
 import AuthSwitchLink from "../organisms/AuthSwitchLink";
 import { supabase } from "@/app/utils/supabaseClient";
 import Toast from "../molecules/Toast";
+import { useRouter } from "next/navigation";
 
 const SignInTemplate = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isShow, setIsShow] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const router = useRouter();
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -28,7 +31,8 @@ const SignInTemplate = () => {
     setIsShow(false);
   };
 
-  const signIn = async () => {
+  const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email: email,
@@ -36,10 +40,15 @@ const SignInTemplate = () => {
       });
       // サインイン成功時にはトーストを表示
       if (!error) {
-        return <Toast success={true} onClick={closeToast} />;
+        setIsSuccess(true);
+        setIsShow(true);
+        setTimeout(() => {
+          router.push("/");
+        }, 3000);
       } else {
         console.error(error);
-        return <Toast success={false} onClick={closeToast} />;
+        setIsSuccess(false);
+        setIsShow(true);
       }
     } catch {
       console.error("サインインに失敗しました");
@@ -49,7 +58,7 @@ const SignInTemplate = () => {
     <PageWrapper>
       <ContentsWrapper className="max-w-md">
         <SectionTitle>Sign In</SectionTitle>
-        {isShow && <Toast success={true} onClick={closeToast} />}
+        {isShow && <Toast success={isSuccess} onClick={closeToast} />}
         <Section>
           <Form onSubmit={signIn}>
             <InputArea

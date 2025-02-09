@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 type Props = {
   type: 'button' | 'submit' | 'reset'
   onClick?: () => void
-  status: 'alert' | 'info'
+  status: 'alert' | 'info' | 'cancel'
   children: string
 }
 
@@ -14,6 +14,7 @@ const VariantButton: FC<Props> = ({ type, onClick, status, children }) => {
   const statusStyles = {
     alert: "bg-red-600 hover:bg-red-500",
     info: "bg-green-600 hover:bg-green-500",
+    cancel: "bg-gray-600 hover:bg-gray-500",
   };
   return (
     <button

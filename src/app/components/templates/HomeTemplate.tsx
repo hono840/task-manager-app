@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import HeaderMenuSp from '../organisms/HeaderMenuSp';
 import Footer from './Footer';
@@ -18,9 +18,17 @@ import ContentsWrapper from '../molecules/ContentsWrapper';
 import Form from '../molecules/Form';
 import PageWrapper from '../molecules/PageWrapper';
 import { useUser } from '@/app/hooks/useUser';
+import { useRouter } from 'next/navigation';
 
 const HomeTemplate = () => {
+  const router = useRouter();
+  const isLoggedin = useUser().isLoggedin;
   const user = useUser();
+  useEffect(() => {
+    if (!user.isLoggedin) {
+      location.href = '/signIn';
+    }
+  }, [isLoggedin, router]);
   // ハンバーガーメニューの開閉状態
   const [isOpen, setIsOpen] = useState(false);
   // ハンバーガーメニューを開く

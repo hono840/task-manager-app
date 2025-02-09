@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 type Props = {
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void

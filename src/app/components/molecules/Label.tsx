@@ -1,4 +1,4 @@
-import React, { FC, LabelHTMLAttributes } from 'react'
+import React, { FC } from 'react'
 
 type Props = {
   htmlFor?: string

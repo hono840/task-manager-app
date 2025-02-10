@@ -1,15 +1,15 @@
-import React, { FC } from 'react'
+import React, { FC } from "react";
 
 type Props = {
-  type: 'button' | 'submit' | 'reset'
-  onClick?: () => void
-  status: 'alert' | 'info' | 'cancel'
-  children: string
-}
+  type: "button" | "submit" | "reset";
+  onClick?: () => void;
+  status: "alert" | "info" | "cancel";
+  children: string;
+};
 
 const VariantButton: FC<Props> = ({ type, onClick, status, children }) => {
   // 基本スタイル
-  const baseStyle = 'text-white py-1 px-3 rounded text-sm'
+  const baseStyle = "text-white py-1 px-3 rounded text-sm";
   // ステータスごとのスタイル
   const statusStyles = {
     alert: "bg-red-600 hover:bg-red-500",
@@ -24,7 +24,7 @@ const VariantButton: FC<Props> = ({ type, onClick, status, children }) => {
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
-export default VariantButton
+export default VariantButton;

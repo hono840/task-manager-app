@@ -120,6 +120,34 @@ const HomeTemplate = () => {
     }
   };
 
+  // タスク編集処理
+  const updateTask = async (id: number) => {
+    try {
+      const { error } = await supabase
+        .from("tasks")
+        .update({
+          task: isEditingTask?.task,
+          priority: isEditingTask?.priority,
+          tag: isEditingTask?.tag,
+          date: isEditingTask?.date,
+        })
+        .eq("id", id);
+      if (error) {
+        console.log("タスク編集中にエラーが発生しました", error);
+        return;
+      }
+      setTasks(
+        tasks.map((task) =>
+          task.id === id ? { ...task, ...isEditingTask } : task
+        )
+      );
+
+      setIsOpenEditModal(false);
+    } catch {
+      console.log("タスク編集中にエラーが発生しました");
+    }
+  };
+
   const onChangeTask = (e: ChangeEvent<HTMLInputElement>) => {
     setTask(e.target.value);
   };
@@ -305,7 +333,7 @@ const HomeTemplate = () => {
                     キャンセル
                   </button>
                   <button
-                    // onClick={onSave}
+                    onClick={() => updateTask(isEditingTask?.id ?? 0)}
                     className="bg-blue-600 text-white px-4 py-2 rounded"
                   >
                     保存

@@ -64,11 +64,11 @@ const HomeTemplate = () => {
       console.log("タスク一覧の取得に失敗しました");
     }
   };
-
+  // マウント時にタスク一覧を取得
   useEffect(() => {
     getTasks();
   }, []);
-
+  // タスク作成処理
   const createTask = async () => {
     try {
       const { error } = await supabase.from("tasks").insert([
@@ -88,6 +88,18 @@ const HomeTemplate = () => {
       setDate("");
     } catch {
       console.log("タスク作成中にエラーが発生しました");
+    }
+  };
+  // タスク削除処理
+  const deleteTask = async (id: number | string) => {
+    try {
+      const { error } = await supabase.from("tasks").delete().eq("id", id);
+      if (error) {
+        console.log("タスク削除中にエラーが発生しました", error);
+      }
+      setTasks(tasks.filter((task) => task.id !== id));
+    } catch {
+      console.log("タスク削除中にエラーが発生しました");
     }
   };
 
@@ -127,17 +139,19 @@ const HomeTemplate = () => {
               value={task}
               onChange={onChangeTask}
             />
-            <SelectArea
-              labelName="優先度"
-              value={priority}
-              onChange={onChangePriority}
-            />
-            <InputArea
-              labelName="期限"
-              type="date"
-              value={date}
-              onChange={onChangeDate}
-            />
+            <div className="flex gap-4 items-center">
+              <SelectArea
+                labelName="優先度"
+                value={priority}
+                onChange={onChangePriority}
+              />
+              <InputArea
+                labelName="期限"
+                type="date"
+                value={date}
+                onChange={onChangeDate}
+              />
+            </div>
             <InputArea
               labelName="タグ"
               type="text"
@@ -164,11 +178,15 @@ const HomeTemplate = () => {
                     <SmallText>タグ: {task.tag}</SmallText>
                     <SmallText>ステータス: {task.status}</SmallText>
                   </div>
-                  <div className="mt-2 flex gap-2 border-t border-gray-700 pt-4 sm:border-none sm:mt-0 sm:pt-0">
+                  <div className="flex gap-2 pt-2 sm:mt-0 sm:pt-0">
                     <VariantButton type="button" status="info">
                       編集
                     </VariantButton>
-                    <VariantButton type="button" status="alert">
+                    <VariantButton
+                      type="button"
+                      status="alert"
+                      onClick={() => deleteTask(task.id)}
+                    >
                       削除
                     </VariantButton>
                   </div>

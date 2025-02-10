@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
-import HeaderMenuListSp from '../molecules/HeaderMenuListSp'
+import React, { FC } from "react";
+import HeaderMenuListSp from "../molecules/HeaderMenuListSp";
 
 type Props = {
-  isOpen: boolean
-  onClick: () => void
-}
+  isOpen: boolean;
+  onClick: () => void;
+};
 
 const HeaderMenuSp: FC<Props> = ({ isOpen, onClick }) => {
   return (
@@ -12,10 +12,10 @@ const HeaderMenuSp: FC<Props> = ({ isOpen, onClick }) => {
     <div
       className={`
           fixed top-0 right-0 w-64 h-full bg-gray-800 shadow-lg
-          transform ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          transform ${isOpen ? "translate-x-0" : "translate-x-full"}
           transition-transform duration-300
           flex flex-col
-          z-50  // ★ メニューを前面に表示
+          z-50
         `}
     >
       {/* バツボタン */}
@@ -26,7 +26,12 @@ const HeaderMenuSp: FC<Props> = ({ isOpen, onClick }) => {
         >
           {/* バツアイコン */}
           <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-            <path d="M6 6L18 18M6 18L18 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <path
+              d="M6 6L18 18M6 18L18 6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
           </svg>
         </button>
       </div>
@@ -36,7 +41,7 @@ const HeaderMenuSp: FC<Props> = ({ isOpen, onClick }) => {
         <HeaderMenuListSp />
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default HeaderMenuSp
+export default HeaderMenuSp;

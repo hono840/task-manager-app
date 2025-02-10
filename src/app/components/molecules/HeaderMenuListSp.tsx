@@ -1,8 +1,8 @@
-import { useUser } from '@/app/hooks/useUser'
-import React from 'react'
+import { useUser } from "@/app/hooks/useUser";
+import React from "react";
 
 const HeaderMenuListSp = () => {
-  const user = useUser()
+  const user = useUser();
   return (
     <ul className="flex flex-col gap-4">
       <li>
@@ -22,13 +22,15 @@ const HeaderMenuListSp = () => {
           サインアップ
         </a>
       </li>
-      <li>
-        <a href="#" className="hover:text-gray-400">
-          サインアウト
-        </a>
-      </li>
+      {user.isLoggedin && (
+        <li>
+          <a href="#" className="hover:text-gray-400">
+            サインアウト
+          </a>
+        </li>
+      )}
     </ul>
-  )
-}
+  );
+};
 
-export default HeaderMenuListSp
+export default HeaderMenuListSp;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Header from "./Header";
 import HeaderMenuSp from "../organisms/HeaderMenuSp";
 import Footer from "./Footer";
@@ -20,12 +20,24 @@ import PageWrapper from "../molecules/PageWrapper";
 import { useUser } from "@/app/hooks/useUser";
 import { supabase } from "@/app/utils/supabaseClient";
 
+interface Task {
+  id: number;
+  task: string;
+  priority: string;
+  tag: string;
+  date: string;
+  status: "未完了" | "完了";
+}
+
 const HomeTemplate = () => {
   const [task, setTask] = useState<string>("");
   const [priority, setPriority] = useState<string>("low");
   const [priorityName, setPriorityName] = useState<"低" | "中" | "高">("低");
   const [tag, setTag] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [date, setDate] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  );
+  const [tasks, setTasks] = useState<Task[]>([]);
   const user = useUser();
   // ハンバーガーメニューの開閉状態
   const [isOpen, setIsOpen] = useState(false);
@@ -38,10 +50,45 @@ const HomeTemplate = () => {
     setIsOpen(false);
   };
 
+  // タスク一覧取得
+  const getTasks = async () => {
+    try {
+      const { data, error } = await supabase.from("tasks").select("*");
+      if (error) {
+        console.log("タスク一覧の取得に失敗しました", error);
+      }
+      if (data) {
+        setTasks(data);
+      }
+    } catch {
+      console.log("タスク一覧の取得に失敗しました");
+    }
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   const createTask = async () => {
     try {
-      // const {data,error} = await supabase.from
-    } catch {}
+      const { error } = await supabase.from("tasks").insert([
+        {
+          task: task,
+          priority: priority,
+          tag: tag,
+          date: new Date(date).toISOString(),
+        },
+      ]);
+      if (error) {
+        console.log("タスク作成中にエラーが発生しました", error);
+      }
+      setTask("");
+      setPriority("low");
+      setTag("");
+      setDate("");
+    } catch {
+      console.log("タスク作成中にエラーが発生しました");
+    }
   };
 
   const onChangeTask = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,7 +119,7 @@ const HomeTemplate = () => {
         {/* タスク作成フォーム */}
         <Section>
           <SectionTitle>タスク作成</SectionTitle>
-          <Form>
+          <Form onSubmit={createTask}>
             <InputArea
               labelName="タスク内容"
               type="text"
@@ -98,31 +145,37 @@ const HomeTemplate = () => {
               value={tag}
               onChange={onChangeTag}
             />
-            <PrimaryButton type="submit" buttonName="作成" />
+            <PrimaryButton type="submit" buttonName="作成" disabled={!task} />
           </Form>
         </Section>
         {/* タスク一覧 */}
         <Section>
           <SectionTitle>タスク一覧</SectionTitle>
-          <TaskList>
-            <TaskListItem>
-              <div>
-                <p className="font-semibold">Task Title 1</p>
-                <SmallText>優先度: 高</SmallText>
-                <SmallText>期限: 2025-01-31</SmallText>
-                <SmallText>ラベル: [design, urgent]</SmallText>
-                <SmallText>ステータス: 完了</SmallText>
-              </div>
-              <div className="mt-2 flex gap-2 border-t border-gray-700 pt-4 sm:border-none sm:mt-0 sm:pt-0">
-                <VariantButton type="button" status="info">
-                  編集
-                </VariantButton>
-                <VariantButton type="button" status="alert">
-                  削除
-                </VariantButton>
-              </div>
-            </TaskListItem>
-          </TaskList>
+          {tasks.length === 0 ? (
+            <p>タスクがありません</p>
+          ) : (
+            <TaskList>
+              {tasks.map((task) => (
+                <TaskListItem key={task.id}>
+                  <div>
+                    <p className="font-semibold">{task.task}</p>
+                    <SmallText>優先度: {task.priority}</SmallText>
+                    <SmallText>期限: {task.date}</SmallText>
+                    <SmallText>タグ: {task.tag}</SmallText>
+                    <SmallText>ステータス: {task.status}</SmallText>
+                  </div>
+                  <div className="mt-2 flex gap-2 border-t border-gray-700 pt-4 sm:border-none sm:mt-0 sm:pt-0">
+                    <VariantButton type="button" status="info">
+                      編集
+                    </VariantButton>
+                    <VariantButton type="button" status="alert">
+                      削除
+                    </VariantButton>
+                  </div>
+                </TaskListItem>
+              ))}
+            </TaskList>
+          )}
         </Section>
       </ContentsWrapper>
       {/* フッター */}
